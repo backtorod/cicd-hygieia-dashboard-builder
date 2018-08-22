@@ -1,13 +1,13 @@
 FROM fabric8/java-centos-openjdk8-jdk:1.5.1
 
 ENV PATH "${PATH}:/opt/apache-maven/bin" \
-		MAVEN_ROOT "/opt/apache-maven" \
-		MAVEN_VERSION "3.5.4" \
-		BUILD_DEPS "nodejs git" \
-		NPM_DEPS "bower gulp" \
-		APP_ROOT "/src" \
-		APP_UID 1000 \
-		APP_GID 1000
+	MAVEN_ROOT "/opt/apache-maven" \
+	MAVEN_VERSION "3.5.4" \
+	BUILD_DEPS "nodejs git" \
+	NPM_DEPS "bower gulp" \
+	APP_ROOT "/src" \
+	APP_UID 1000 \
+	APP_GID 1000
 
 USER root
 
