@@ -1,22 +1,27 @@
 FROM fabric8/java-centos-openjdk8-jdk:1.5.1
 
-ENV PATH "${PATH}:/opt/apache-maven/bin"
+ENV PATH "${PATH}:/opt/apache-maven/bin" \
+		MAVEN_ROOT "/opt/apache-maven" \
+		MAVEN_VERSION "3.5.4" \
+		BUILD_DEPS "nodejs git" \
+		NPM_DEPS "bower gulp" \
+		APP_ROOT "/src" \
+		APP_UID 1000 \
+		APP_GID 1000
 
 USER root
 
-RUN curl --silent --location https://rpm.nodesource.com/setup_8.x | bash - \
-	&& yum -y install nodejs git \
-	&& npm install -g bower \
-	&& npm install -g gulp
-
 WORKDIR /tmp
 
-RUN curl -LO http://www-us.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz \
-	&& tar -zxvf apache-maven-3.5.4-bin.tar.gz \
-	&& mv apache-maven-3.5.4 /opt \
-	&& chown -R root:root /opt/apache-maven-3.5.4 \
-	&& ln -s /opt/apache-maven-3.5.4 /opt/apache-maven
+RUN curl --silent --location https://rpm.nodesource.com/setup_8.x | bash - \
+	&& yum -y install "${BUILD_DEPS}" \
+	&& npm install -g "${NPM_DEPS}" \
+	&& curl -LO "http://www-us.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" \
+	&& tar -zxvf "apache-maven-${MAVEN_VERSION}-bin.tar.gz" \
+	&& mv "apache-maven-${MAVEN_VERSION}" /opt \
+	&& chown -R $APP_UID:$APP_GID "/opt/apache-maven-${MAVEN_VERSION}" \
+	&& ln -s "/opt/apache-maven-${MAVEN_VERSION}" $MAVEN_ROOT
 
-USER 1000
+USER $APP_UID
 
-WORKDIR /src
+WORKDIR $APP_ROOT
