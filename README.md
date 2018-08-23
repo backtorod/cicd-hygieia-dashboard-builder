@@ -16,6 +16,8 @@ docker build -t wearecloud44/hygieia-builder:centos -f Dockerfile .
 
 ```shell
 docker run -it -v /home/rguareschi/git/Hygieia:/src wearecloud44/hygieia-builder:centos mvn clean install package
+
+cd ../Hygieia
 docker-compose build
 ```
 
