@@ -1,0 +1,53 @@
+version: '3'
+services:
+  api:
+    environment: # for a full list check the corresponding properties-builder file
+      DB_DATABASE: dashboarddb
+      DB_HOST: db
+      DB_PORT: 27017
+      DB_USERNAME: dashboarduser
+      DB_PASSWORD: dbpassword
+    volumes:
+      - $PWD/hygieia/logs:/hygieia/logs
+
+  api-audit:
+    environment:
+      MONGO_PORT: "tcp://db:27017"
+ 
+  ui:
+    # environment:
+
+  github-collector:
+    environment:
+      GITHUB_KEY: "4PtSqA7fH8T3p5hulIPH8gibtR+1FggI"
+      PERSONAL_ACCESS_TOKEN: "9ddc3d0982e6c21ed01af65c15406b018de14e1c"
+      HYGIEIA_API_ENV_SPRING_DATA_MONGODB_DATABASE: "dashboarddb"
+      HYGIEIA_API_ENV_SPRING_DATA_MONGODB_USERNAME: "dashboarduser"
+      HYGIEIA_API_ENV_SPRING_DATA_MONGODB_PASSWORD: "dbpassword" 
+      MONGODB_HOST: "db"
+      MONGODB_PORT: "27017" 
+
+  # github-graphql-collector:
+  #   # environment:
+
+  jenkins-build-collector:
+    environment:
+      MONGO_PORT: "tcp://db:27017"
+      SPRING_DATA_MONGODB_HOST: "db"
+      SPRING_DATA_MONGODB_PORT: "27017"
+      SPRING_DATA_MONGODB_DATABASE: "dashboarddb"
+      SPRING_DATA_MONGODB_USERNAME: "dashboarduser"
+      SPRING_DATA_MONGODB_PASSWORD: "dbpassword"
+
+  # jenkins-codequality-collector:
+  #   # environment:
+
+  # jenkins-cucumber-test-collector:
+  #   # environment:
+
+  # nexus-iq-collector:
+  #   # environment:
+
+  # sonar-codequality-collector:
+  #   # environment:
+
