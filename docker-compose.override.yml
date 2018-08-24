@@ -22,6 +22,8 @@ services:
 
   github-collector:
     environment:
+      JASYPT_ENCRYPTOR_PASSWORD: "hygieiasecret"
+      KEY: "4PtSqA7fH8T3p5hulIPH8gibtR+1FggI"
       GITHUB_KEY: "4PtSqA7fH8T3p5hulIPH8gibtR+1FggI"
       PERSONAL_ACCESS_TOKEN: "9ddc3d0982e6c21ed01af65c15406b018de14e1c"
       MONGODB_HOST: "db"
